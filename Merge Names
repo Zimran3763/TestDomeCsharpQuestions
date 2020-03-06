@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;  
+
+public class MergeNames
+{
+    public static string[] UniqueNames(string[] names1, string[] names2)
+    {
+       var hset = new HashSet <string> ();
+        for(int i =0; i<names1.Length;i++)
+        {
+            if(!hset.Contains(names1[i]))
+            {
+                hset.Add(names1[i]);
+            }
+        }
+        for(int j=0; j<names2.Length;j++)
+        {
+            if(!hset.Contains(names2[j]))
+            {
+                hset.Add(names2[j]);
+            }
+        }
+        String[] stringArray = new String[hset.Count];
+        hset.CopyTo(stringArray);
+        return stringArray;
+        //return names1.Concat(names2.Where(l2 => !names1.Contains(l2))).ToArray();
+        //return names1.Concat(names2).Distinct().ToArray();
+    }
+    
+    public static void Main(string[] args)
+    {
+        string[] names1 = new string[] {"Ava", "Emma", "Olivia"};
+        string[] names2 = new string[] {"Olivia", "Sophia", "Emma"};
+        Console.WriteLine(string.Join(", ", MergeNames.UniqueNames(names1, names2))); // should print Ava, Emma, Olivia, Sophia
+    }
+}
